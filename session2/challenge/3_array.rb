@@ -7,5 +7,16 @@
 
 class String
   def every_other_char
+    odd = false
+    array = []
+    each_char do |x|
+      if odd == true
+        odd = false
+      else
+        array << x
+        odd = true
+      end
+    end
+    array
   end
 end
