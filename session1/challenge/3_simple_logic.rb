@@ -9,4 +9,14 @@
 
 def ten_twenty(n)
   # your code goes here
+  if n % 2 == 0
+    puts 10
+    return 10
+  else
+    puts 20
+    return 20
+  end
 end
+
+ten_twenty(5)
+ten_twenty(6)
