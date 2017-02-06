@@ -6,6 +6,22 @@
 # If it is true, then they will be true when they are oppositely truthy.
 # If it is false, then they will be true when they are similarly truthy.
 #
+
+def match_maker(first_para, *elements)
+  to_return = []
+  elements.each_slice 2 do |first, last|
+    first = !!first
+    last = !!last
+    result = if first_para
+      first != last
+    else
+      first == last
+    end
+    to_return << result
+  end
+  to_return
+end
+
 # Examples:
 # match_maker false, true,  true                # => [true]
 # match_maker true,  true,  true                # => [false]
@@ -16,4 +32,3 @@
 # match_maker true,  true,  true, false, nil    # => [false, false]
 # match_maker true,  true,  true, true, nil     # => [false, true]
 # match_maker true,  true,  true, 0, nil        # => [false, true]
-
