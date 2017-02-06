@@ -10,7 +10,7 @@
 # You should also define a method, to_s, that will represent the Fraction as a String
 #
 # EXAMPLE:
-# f = Fraction.new 20, 60
+# f = Fraction.new(20, 60)
 # f.numerator          # => 20
 # f.denominator        # => 60
 # f.to_s               # => "20/60"
@@ -21,8 +21,40 @@
 # f.to_f               # => 0.5
 
 class Fraction
+  attr_accessor :numerator, :denominator
+
+  def initialize(numerator, denominator)
+    self.numerator = numerator
+    self.denominator = denominator
+  end
+
   def gcd(a,b)
     return a if b == 0
     gcd(b, a%b)
   end
+
+
+  def to_f
+    numerator / denominator.to_f
+  end
+
+  def lowest
+    divide_by = gcd(numerator, denominator)
+    Fraction.new(numerator/divide_by, denominator/divide_by)
+  end
+
+  def to_s
+    "#{numerator} / #{denominator}"
+  end
 end
+
+# EXAMPLE:
+ f = Fraction.new(20, 60)
+ f.numerator          # => 20
+ f.denominator        # => 60
+puts f.to_s               # => "20/60"
+puts f.lowest.to_s        # => "1/3"
+ f.numerator = 50
+ f.denominator = 100
+ puts f.to_s               # => "50/100"
+ puts f.to_f               # => 0.5
