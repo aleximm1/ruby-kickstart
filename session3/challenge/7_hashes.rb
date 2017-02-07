@@ -3,6 +3,8 @@
 # if the color is set, then it should show up in the style
 # It should also not be necessary to pass in the hash, if you don't want to specify options
 #
+
+
 #
 # EXAMPLE:
 #
@@ -31,11 +33,20 @@ class HTMLTag
     :monospace  => '"Courier New", "Lucida Console"'
   }
 
-  attr_accessor :name, :innerHTML, :options
+  COLORS = {
+    :red   => '#FF0000',
+    :green => '#00FF00',
+    :blue  => '#0000FF',
+  }
+
+  attr_accessor :name, :innerHTML, :font, :color, :multiline
 
   # options: :multiline should be true or false
-  def initialize(name, innerHTML, options)
-    @name, @innerHTML, @options = name, innerHTML, options
+  def initialize(name, innerHTML, options = Hash.new)
+    @name, @innerHTML = name, innerHTML
+    self.font      = FONTS[options[:font]]
+    self.color     = COLORS[options[:color]]
+    self.multiline = options.fetch :multiline, false
   end
 
   def font
@@ -49,7 +60,7 @@ class HTMLTag
   end
 
   def to_s
-    line_end = if options[:multiline] then "\n" else "" end
+    line_end = if multiline then "\n" else "" end
     "<#{name} #{style}>#{line_end}"  \
     "#{innerHTML.chomp}#{line_end}"  \
     "</#{name}>\n"

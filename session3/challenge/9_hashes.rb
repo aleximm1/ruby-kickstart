@@ -29,4 +29,17 @@
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
 def shared(a, b)
+  union = {}
+  a.each do |x|
+    union[x] ||= [nil, nil]
+    union[x][0] = true
+  end
+  b.each do |y|
+    union[y] ||= [nil, nil]
+    union[y][1] = true
+  end
+  result = union.select { |key, value| value == [true, true] }.map { |key, value| key }
+  return union, result.sort
 end
+
+#shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
